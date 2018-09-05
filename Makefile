@@ -11,7 +11,7 @@ OBJ = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 CPPFLAGS += -Iinclude
 CFLAGS += -Wall
 LDFLAGS += -Llib
-LDLIBS += -lSDL -llodepng
+LDLIBS += -llodepng
 
 .PHONY: all clean
 
