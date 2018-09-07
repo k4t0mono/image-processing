@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "image.hpp"
-
+#include "filters.hpp"
 
 int main(int argc, char** argv)
 {
@@ -13,9 +13,11 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 
-	Image img;
-	img.load(argv[1]);
-	img.save(argv[2]);
+	Image src;
+	src.load(argv[1]);
+
+	Image mod = mean_filter(src, 1);
+	mod.save(argv[2]);
 
 	return 0;
 }

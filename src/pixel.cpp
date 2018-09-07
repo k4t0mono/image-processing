@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <vector>
 
 #include "pixel.hpp"
@@ -36,7 +37,12 @@ Pixel::operator=(const Pixel& p)
 std::ostream&
 operator<<(std::ostream& os, const Pixel& px)
 {
-	os << std::hex << (int) px.red << (int) px.green << (int) px.blue
-		<< (int) px.alpha << std::dec;
+	using namespace std;
+
+	os << setw(2) << setfill('0') << hex << (int) px.red  << dec;
+	os << setw(2) << setfill('0') << hex << (int) px.green  << dec;
+	os << setw(2) << setfill('0') << hex << (int) px.blue  << dec;
+	os << setw(2) << setfill('0') << hex << (int) px.alpha  << dec;
+
 	return os;
 }
