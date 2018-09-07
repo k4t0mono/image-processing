@@ -74,8 +74,10 @@ Image::get_at(unsigned int x, unsigned int y)
 Pixel
 Image::set_at(const Pixel& px, unsigned int x, unsigned int y)
 {
-	if(x >= this->width || y >= this->height)
+	if(x >= this->width || y >= this->height) {
+		std::cerr << "(" << x << ", " << y << ")" << std::endl;
 		throw std::out_of_range("Invalid position for this image");
+	}
 
 	unsigned int i = x * this->width + y;
 	Pixel p = this->pixels[i];
