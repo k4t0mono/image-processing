@@ -59,7 +59,7 @@ Pixel
 Image::get_at(unsigned int x, unsigned int y)
 {
 	if(x >= this->width || y >= this->height) {
-		std::cerr << "(" << x << ", " << y << ")" << std::endl;
+		std::cerr << "(" << x << ", " << y << ") " << this->width << "x" << this->height << std::endl;
 		throw std::out_of_range("Invalid position for this image");
 	}
 
