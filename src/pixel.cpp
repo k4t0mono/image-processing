@@ -14,12 +14,32 @@ Pixel::Pixel()
 }
 
 Pixel::Pixel(unsigned char r, unsigned char g,
-			 unsigned char b, unsigned char a)
+	unsigned char b, unsigned char a)
 {
 	this->red = r;
 	this->green = g;
 	this->blue = b;
 	this->alpha = a;
+}
+
+Pixel&
+Pixel::operator+=(const Pixel& p)
+{
+	//std::cout << *this << " + " << p << " = ";
+	this->red += p.red;
+	this->green += p.green;
+	this->blue += p.blue;
+	this->alpha += p.alpha;
+
+	//std::cout << *this << std::endl;
+	return *this;
+}
+
+Pixel
+operator+(Pixel pa, const Pixel& pb)
+{
+	pa += pb;
+	return pa;
 }
 
 Pixel&

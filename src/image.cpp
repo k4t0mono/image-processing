@@ -34,22 +34,31 @@ Image::load(char* filename)
 void
 Image::save(char* filename)
 {
-	std::vector<unsigned char> png;
+	std::vector<unsigned char> img;
 
 	for(auto it = this->pixels.begin(); it != this->pixels.end(); it++) {
-		png.push_back((unsigned char) it->red);
-		png.push_back((unsigned char) it->green);
-		png.push_back((unsigned char) it->blue);
-		png.push_back((unsigned char) it->alpha);
+		img.push_back((unsigned char) it->red);
+		img.push_back((unsigned char) it->green);
+		img.push_back((unsigned char) it->blue);
+		img.push_back((unsigned char) it->alpha);
 	}
 
+	lodepng::State state;
+	state.encoder.force_palette = 1;
+
 	unsigned error;
-	error = lodepng::encode(filename, png, this->width, this->height);
+	std::vector<unsigned char> png;
+	error = lodepng::encode(png, img, this->width, this->height, state);
 	if(error) {
 		std::cerr << "encoder error " << error << ": "
 			<< lodepng_error_text(error) << std::endl;
 		exit(error);
 	}
+
+	lodepng::save_file(png, filename);
+
+	//unsigned error;
+	//error = lodepng::encode(filename, png, this->width, this->height);
 }
 
 /*
@@ -84,4 +93,29 @@ Image::set_at(const Pixel& px, unsigned int x, unsigned int y)
 	this->pixels[i] = px;
 
 	return p;
+}
+
+Image&
+Image::operator+=(const Image& img)
+{
+	if((this->width != img.width) || (this->height != img.height))
+		// TODO: Criar nova exception
+		throw 4;
+
+	for(unsigned int i = 0; i < this->height; i++) {
+		for(unsigned int j = 0; j < this->width; j++) {
+			int k = i * this->width + j;
+			printf("(%2d, %2d) ", i, j);
+			this->get_at(i, j) += img.pixels[k];
+		}
+	}
+
+	return *this;
+}
+
+Image
+operator+(Image a, const Image& b)
+{
+	a += b;
+	return a;
 }

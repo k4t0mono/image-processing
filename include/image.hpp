@@ -19,6 +19,9 @@ struct Image {
 
 	Pixel get_at(unsigned int x, unsigned int y);
 	Pixel set_at(const Pixel& px, unsigned int x, unsigned int y);
+
+	Image& operator+=(const Image& img);
+	friend Image operator+(Image a, const Image& b);
 };
 
 #endif

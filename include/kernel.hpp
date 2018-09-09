@@ -1,7 +1,7 @@
 // Kernel
 
 #ifndef KERNEL_HPP
-#define KERNELL_HPP
+#define KERNEL_HPP
 
 struct Triple {
 	int x;
