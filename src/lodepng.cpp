@@ -1,1 +1,0 @@
-../libs/lodepng/lodepng.cpp
